@@ -9,6 +9,7 @@ This repo is built for a developer test to the requirements in [REQUIREMENTS.md]
 - [Docker](https://docs.docker.com/install/)
 - [Vue.cli](https://cli.vuejs.org/)
 - [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+- [node/npm](https://nodejs.org/en/)
 
 ### Dev Environment
 
