@@ -9,7 +9,7 @@ This repo is built for a developer test to the requirements in [REQUIREMENTS.md]
 - [Docker](https://docs.docker.com/install/)
 - [Vue.cli](https://cli.vuejs.org/)
 - [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-- [node/npm](https://nodejs.org/en/)
+- [node/npm](https://nodejs.org/en/) or [yarn](https://yarnpkg.com/lang/en/)
 
 ### Dev Environment
 
@@ -27,8 +27,8 @@ These commands execute artisan commands in the php container, which has php-cli 
 git clone https://github.com/virtualstyle/mfc-devtest
 
 cd mfc-devtest/services/mfc-devtest-ui/www
-yarn
-yarn build
+yarn #Or npm install
+yarn build #Or npm rum build
 
 cd ../../../services/mfc-devtest-api/www/default
 #Note that composer is an alias to php composer.phar. Check their install docs if needed.
