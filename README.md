@@ -12,6 +12,8 @@ This repo is built for a developer test to the requirements in [REQUIREMENTS.md]
 
 ### Dev Environment
 
+**WARNING:** *I have committed the .env file for Laravel, and removed the .env entry from the gitignore files to ease spinning up the dev containers.*
+
 **NOTE:** *All of this was done on a Mac. Docker and various CLI tools have some weirdness on Windows machines. If you're on Windows, hopefully you have resolved many of the issues with the dev tools used here.*
 
 **NOTE:** *The seeded companies will cause errors when edited because the images are urls and not uploaded files. Testin g company edits should be done with companies created by users rather than the seeded values.*
@@ -24,11 +26,21 @@ These commands execute artisan commands in the php container, which has php-cli 
 git clone https://github.com/virtualstyle/mfc-devtest
 
 cd mfc-devtest/services/mfc-devtest-ui/www
+yarn
 yarn build
 
-cd ../../..
+cd ../../../services/mfc-devtest-api/www/default
+#Note that composer is an alias to php composer.phar. Check their install docs if needed.
+composer install
+
+cd bootstrap
+mkdir cache
+cd ..
+
 docker-compose up
 
+#In a new terminal:
+cd mfc-devtest/services/mfc-devtest-api/www/default
 #Migrate and seed DB
 docker-compose exec vs-php php /usr/share/nginx/html/default/artisan migrate
 docker-compose exec vs-php php /usr/share/nginx/html/default/artisan db:seed
@@ -49,7 +61,7 @@ For development, I found it easier to enter the UI directory and just run `yarn 
 
 Postman is invaluable for interacting with the API. You can simply hit the login endpoint (http://mfc-devtest-api.localhost/api/auth/login) and enter the data to get an auth token that can be pasted into Postman's Authorization Bearer Token field, and then run requests against any other endpoints.
 
-### Useful Commads
+### Useful Commands
 ```bash
 #Wipe and recreate/reseed db
 docker-compose exec vs-php php /usr/share/nginx/html/default/artisan migrate:fresh --seed
@@ -59,6 +71,9 @@ docker-compose exec vs-php php /usr/share/nginx/html/default/artisan config:cach
 
 #Wipe all project containers
 docker-compose rm -v
+
+##Rebuild container
+docker-compose up --build
 
 
 

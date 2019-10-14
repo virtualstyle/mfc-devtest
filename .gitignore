@@ -12,11 +12,10 @@ dist/
 stats.json
 .cache
 .DS_Store
-.env
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.yarnclean
+.yarncleanx
 
 cypress/screenshots/
 cypress/match-screenshots/diff/
