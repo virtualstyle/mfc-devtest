@@ -1,0 +1,55 @@
+<?php
+
+namespace App\Api\V1\Controllers;
+
+use Auth;
+use Tymon\JWTAuth\JWTAuth;
+use App\Http\Controllers\Controller;
+use App\Api\V1\Requests\LoginRequest;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+
+class LoginController extends Controller
+{
+    /**
+     * Log the user in.
+     *
+     * @param LoginRequest $request
+     * @param JWTAuth $JWTAuth
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function login(LoginRequest $request, JWTAuth $JWTAuth)
+    {
+        $credentials = $request->only(['email', 'password']);
+        try {
+            $token = Auth::guard()->attempt($credentials);
+
+            if (! $token) {
+                throw new AccessDeniedHttpException();
+            }
+        } catch (JWTException $e) {
+            throw new HttpException(500);
+        }
+        $user = Auth::user();
+        $companies = [];
+        if ($user->role === 'Manager') {
+            foreach ($user->companies as $company) {
+                $companies[] = $company->id;
+            }
+        }
+        $userData = [
+          'name' => $user->name,
+          'role' => $user->role,
+          'companies' => $companies,
+        ];
+
+        return response()
+            ->json([
+                'status' => 'ok',
+                'token' => $token,
+                'expires_in' => Auth::guard()->factory()->getTTL() * 60,
+                'user' => $userData,
+            ]);
+    }
+}

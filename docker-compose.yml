@@ -1,0 +1,86 @@
+version: "3"
+services:
+
+ vs-proxy:
+  container_name: vs-proxy
+  build:
+    context: ./services
+    dockerfile: ./vs-proxy/Dockerfile
+  ports:
+  - "80:80"
+  - "443:443"
+  networks:
+  - vs-web
+  links:
+  - mfc-devtest-api
+  logging:
+    options:
+      max-size: 50m
+
+ mfc-devtest-api:
+  container_name: mfc-devtest-api
+  build:
+    context: ./services
+    dockerfile: ./mfc-devtest-api/Dockerfile
+  volumes:
+  - ./services/mfc-devtest-api/www/default:/usr/share/nginx/html/default
+  networks:
+  - vs-web
+  links:
+  - vs-php
+  - vs-mariadb
+  logging:
+    options:
+      max-size: 50m
+
+ mfc-devtest-ui:
+  container_name: mfc-devtest-ui
+  build:
+    context: ./services
+    dockerfile: ./mfc-devtest-ui/Dockerfile
+  volumes:
+  - ./services/mfc-devtest-ui/www/dist:/usr/share/nginx/html
+  networks:
+  - vs-web
+  logging:
+    options:
+      max-size: 50m
+
+ vs-php:
+  container_name: vs-php
+  build:
+    context: ./services
+    dockerfile: ./vs-php/Dockerfile
+  volumes:
+  - ./services/mfc-devtest-api/www/default:/usr/share/nginx/html/default
+  networks:
+  - vs-web
+  links:
+  - vs-mariadb
+  logging:
+    options:
+      max-size: 50m
+
+ vs-mariadb:
+  container_name: vs-mariadb
+  image: mariadb:10.4
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_USER: mfc-devtest
+    MYSQL_PASSWORD: secret
+    MYSQL_DATABASE: mfc-devtest
+  ports:
+    - "3306:3306"
+  networks:
+  - vs-web
+  volumes:
+    # Persistent data
+    - /var/lib/mysql
+    - ./data:/data
+  logging:
+    options:
+      max-size: 50m
+
+
+networks:
+   vs-web:
