@@ -17,9 +17,9 @@ This repo is built for a developer test to the requirements in [REQUIREMENTS.md]
 
 **NOTE:** *All of this was done on a Mac. Docker and various CLI tools have some weirdness on Windows machines. If you're on Windows, hopefully you have resolved many of the issues with the dev tools used here.*
 
-**NOTE:** *The seeded companies will cause errors when edited because the images are urls and not uploaded files. Testin g company edits should be done with companies created by users rather than the seeded values.*
+**NOTE:** *The seeded companies will cause errors when edited because the images are urls and not uploaded files. Testing company edits should be done with companies created by users rather than the seeded values.*
 
-**NOTE:** *This code is kinda sloppy. Starting a project to me, is where most of the heavy lifting happens, trying out packages and discarding them, testing strategies, and getting the most solid and adaptable foundation possible. Really, I expect project starts to take a few weeks or more, since getting the foundation right is the mosty important part of development. Unless you're just grinding out boilerplate... then just create-react-app and accept the limitations, I suppose...*
+**NOTE:** *This code is kinda sloppy. Starting a project to me, is where most of the heavy lifting happens, trying out packages and discarding them, testing strategies, and getting the most solid and adaptable foundation possible. Really, I expect project starts to take a few weeks or more, since getting the foundation right is the most important part of development. Unless you're just grinding out boilerplate... then just create-react-app and accept the limitations, I suppose...*
 
 #### Clone the repo, start containers, migrate/seed data:
 These commands execute artisan commands in the php container, which has php-cli and access to both our database and our Laravel code directory. These could also be executed in the local Laravel root directory, but it felt like there was some weirdness sometimes, so I just handled it through the container.
