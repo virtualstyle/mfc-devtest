@@ -13,7 +13,7 @@ This repo is built for a developer test to the requirements in [REQUIREMENTS.md]
 
 ### Dev Environment
 
-**WARNING:** *I have committed the .env file for Laravel, and removed the .env entry from the gitignore files to ease spinning up the dev containers.*
+**WARNING:** *I have committed the .env file for Laravel and Vue, and removed the .env entry from the gitignore files to ease spinning up the dev containers.*
 
 **NOTE:** *All of this was done on a Mac. Docker and various CLI tools have some weirdness on Windows machines. If you're on Windows, hopefully you have resolved many of the issues with the dev tools used here.*
 
